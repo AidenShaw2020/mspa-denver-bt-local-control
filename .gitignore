@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+dist/
+.env
+.env.*
+secrets.yaml
+secrets.json
+proxy_connection.json
+mspa_profile.json
+mspa-export-*.json
+mspa-proxy-sequence.json
+.storage/
+*.xapk
+*.apk

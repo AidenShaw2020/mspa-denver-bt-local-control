@@ -1,0 +1,102 @@
+{
+  "title": "MSpa Local",
+  "config": {
+    "step": {
+      "user": {
+        "title": "MSpa Local",
+        "menu_options": {
+          "login": "Načíst z MSpa účtu",
+          "manual": "Ruční nastavení"
+        }
+      },
+      "login": {
+        "title": "Přihlášení k MSpa",
+        "description": "Přihlas se hlavním účtem. Pro ČR zvol ROW. Heslo a token se neukládají; cloud se použije pouze k načtení profilu.",
+        "data": {
+          "email": "E-mail",
+          "password": "Heslo",
+          "region": "Region"
+        }
+      },
+      "select_device": {
+        "title": "Výběr vířivky",
+        "data": {
+          "device": "Vířivka"
+        }
+      },
+      "manual": {
+        "title": "Lokální Bluetooth nastavení",
+        "description": "Prázdné klíče zachovají importované hodnoty. Pro ruční nastavení jsou potřeba NetKey i AppKey. Adresa klienta musí být volná v Mesh síti. Zápisy se ověřují zpětným čtením.",
+        "data": {
+          "name": "Název vířivky",
+          "model": "Model",
+          "unicast_address_hex": "Adresa vířivky (hex, například 0102)",
+          "net_key": "NetKey (32 hex znaků; prázdné zachová stávající)",
+          "app_key": "AppKey (32 hex znaků; prázdné zachová stávající)",
+          "controller_address_hex": "Adresa tohoto klienta (hex)",
+          "poll_seconds": "Interval aktualizace (sekundy)",
+          "probe_seconds": "Čekání na stav vířivky (sekundy)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Přihlášení selhalo. Zkontroluj účet, heslo a region.",
+      "cannot_connect": "Nelze se připojit k MSpa API. Zkontroluj síť a region.",
+      "no_mesh_nodes": "Účet nevrátil žádné Mesh uzly. Použij hlavní účet vlastníka; sdílený účet může vracet prázdnou síť.",
+      "invalid_mesh": "MSpa API nevrátilo použitelný Mesh profil s platnou vazbou na síťový klíč.",
+      "device_missing": "Tento účet neobsahuje původní vířivku. Pro jiné zařízení přidej samostatnou integraci.",
+      "invalid_profile": "Zkontroluj NetKey a AppKey (32 hex znaků), adresu vířivky a odlišnou volnou adresu klienta 0001–7FFF."
+    },
+    "abort": {
+      "already_configured": "Tato vířivka už je nastavená."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Nastavení MSpa Local",
+        "menu_options": {
+          "manual": "Upravit profil a interval čtení",
+          "login": "Znovu importovat klíče z účtu"
+        }
+      },
+      "login": {
+        "title": "Přihlášení k MSpa",
+        "description": "Přihlas se hlavním účtem. Pro ČR zvol ROW. Heslo a token se neukládají; cloud se použije pouze k načtení profilu.",
+        "data": {
+          "email": "E-mail",
+          "password": "Heslo",
+          "region": "Region"
+        }
+      },
+      "select_device": {
+        "title": "Výběr vířivky",
+        "data": {
+          "device": "Vířivka"
+        }
+      },
+      "manual": {
+        "title": "Lokální Bluetooth nastavení",
+        "description": "Prázdné klíče zachovají importované hodnoty. Pro ruční nastavení jsou potřeba NetKey i AppKey. Adresa klienta musí být volná v Mesh síti. Zápisy se ověřují zpětným čtením.",
+        "data": {
+          "name": "Název vířivky",
+          "model": "Model",
+          "unicast_address_hex": "Adresa vířivky (hex, například 0102)",
+          "net_key": "NetKey (32 hex znaků; prázdné zachová stávající)",
+          "app_key": "AppKey (32 hex znaků; prázdné zachová stávající)",
+          "controller_address_hex": "Adresa tohoto klienta (hex)",
+          "poll_seconds": "Interval aktualizace (sekundy)",
+          "probe_seconds": "Čekání na stav vířivky (sekundy)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Přihlášení selhalo. Zkontroluj účet, heslo a region.",
+      "cannot_connect": "Nelze se připojit k MSpa API. Zkontroluj síť a region.",
+      "no_mesh_nodes": "Účet nevrátil žádné Mesh uzly. Použij hlavní účet vlastníka; sdílený účet může vracet prázdnou síť.",
+      "invalid_mesh": "MSpa API nevrátilo použitelný Mesh profil s platnou vazbou na síťový klíč.",
+      "device_missing": "Tento účet neobsahuje původní vířivku. Pro jiné zařízení přidej samostatnou integraci.",
+      "invalid_profile": "Zkontroluj NetKey a AppKey (32 hex znaků), adresu vířivky a odlišnou volnou adresu klienta 0001–7FFF."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+MSpa Denver Bluetooth Local Control / MSpa Local
+Copyright 2026 MSpa Local contributors
+
+Distributed under the Apache License, Version 2.0. See LICENSE.
+
+Upstream cloud authentication:
+  DTekNO/mspa-homeassistant, Apache License 2.0
+  https://github.com/DTekNO/mspa-homeassistant
+  Reference commit: bdaa2420e34dee1c7449873d79eb7b17691a3426
+  Original file: custom_components/mspa/mspa_api.py
+  Adapted file: custom_components/mspa_local/cloud.py
+
+The adaptation replaces synchronous requests with asynchronous HTTP, imports
+Mesh profiles only during configuration, selects each node's bound network and
+application keys, validates profiles, and does not retain login credentials or
+session tokens. Cloud actuator calls and predictive algorithms are not included.
+Core entity names and filter/heater dependencies follow the upstream integration.
+
+Bluetooth Mesh transport is independently implemented from the protocol.
+Published cryptographic test vectors were checked against Nordic Semiconductor's
+Android nRF Mesh Library, reference commit:
+  433163b22ae09d85960a3da297f7e3c956c658e1
+  https://github.com/NordicSemiconductor/Android-nRF-Mesh-Library
+  Copyright (c) 2018, Nordic Semiconductor ASA. All rights reserved.
+  BSD-3-Clause license and disclaimer: LICENSES/Nordic-BSD-3-Clause.txt
+
+MSpa Link 1.2.13 was used to investigate the vendor protocol. Its application
+code, APK and assets are not part of this distribution. Product names identify
+compatibility and do not imply endorsement by their owners.

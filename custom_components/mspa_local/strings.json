@@ -1,0 +1,102 @@
+{
+  "title": "MSpa Local",
+  "config": {
+    "step": {
+      "user": {
+        "title": "MSpa Local",
+        "menu_options": {
+          "login": "Import from MSpa account",
+          "manual": "Manual setup"
+        }
+      },
+      "login": {
+        "title": "Sign in to MSpa",
+        "description": "Use the owner account. Select ROW for Europe. Password and token are not retained; the cloud is only used to import the profile.",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "region": "Region"
+        }
+      },
+      "select_device": {
+        "title": "Select spa",
+        "data": {
+          "device": "Spa"
+        }
+      },
+      "manual": {
+        "title": "Local Bluetooth settings",
+        "description": "Blank keys retain imported values. Manual setup requires NetKey and AppKey. The controller address must be unused in the Mesh network. Writes are verified by reading device state.",
+        "data": {
+          "name": "Spa name",
+          "model": "Model",
+          "unicast_address_hex": "Spa Mesh address (hex, e.g. 0102)",
+          "net_key": "NetKey (32 hex digits; blank keeps current)",
+          "app_key": "AppKey (32 hex digits; blank keeps current)",
+          "controller_address_hex": "This controller address (hex)",
+          "poll_seconds": "Polling interval (seconds)",
+          "probe_seconds": "State response timeout (seconds)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Sign in failed. Check account, password and region.",
+      "cannot_connect": "Cannot connect to MSpa API. Check network and region.",
+      "no_mesh_nodes": "No Mesh nodes were returned. Use the owner account; a shared account may have an empty network.",
+      "invalid_mesh": "The API did not return a usable Mesh profile with a valid network key binding.",
+      "device_missing": "This account does not contain the original spa. Add another integration for a different device.",
+      "invalid_profile": "Check NetKey and AppKey (32 hex digits), spa address and a different unused controller address 0001\u20137FFF."
+    },
+    "abort": {
+      "already_configured": "This spa is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "MSpa Local settings",
+        "menu_options": {
+          "manual": "Edit profile and polling",
+          "login": "Import keys again from account"
+        }
+      },
+      "login": {
+        "title": "Sign in to MSpa",
+        "description": "Use the owner account. Select ROW for Europe. Password and token are not retained; the cloud is only used to import the profile.",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "region": "Region"
+        }
+      },
+      "select_device": {
+        "title": "Select spa",
+        "data": {
+          "device": "Spa"
+        }
+      },
+      "manual": {
+        "title": "Local Bluetooth settings",
+        "description": "Blank keys retain imported values. Manual setup requires NetKey and AppKey. The controller address must be unused in the Mesh network. Writes are verified by reading device state.",
+        "data": {
+          "name": "Spa name",
+          "model": "Model",
+          "unicast_address_hex": "Spa Mesh address (hex, e.g. 0102)",
+          "net_key": "NetKey (32 hex digits; blank keeps current)",
+          "app_key": "AppKey (32 hex digits; blank keeps current)",
+          "controller_address_hex": "This controller address (hex)",
+          "poll_seconds": "Polling interval (seconds)",
+          "probe_seconds": "State response timeout (seconds)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Sign in failed. Check account, password and region.",
+      "cannot_connect": "Cannot connect to MSpa API. Check network and region.",
+      "no_mesh_nodes": "No Mesh nodes were returned. Use the owner account; a shared account may have an empty network.",
+      "invalid_mesh": "The API did not return a usable Mesh profile with a valid network key binding.",
+      "device_missing": "This account does not contain the original spa. Add another integration for a different device.",
+      "invalid_profile": "Check NetKey and AppKey (32 hex digits), spa address and a different unused controller address 0001\u20137FFF."
+    }
+  }
+}

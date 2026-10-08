@@ -1,0 +1,17 @@
+{
+  "domain": "mspa_local",
+  "name": "MSpa Local",
+  "version": "0.2.0",
+  "config_flow": true,
+  "dependencies": [
+    "bluetooth"
+  ],
+  "codeowners": [
+    "@AidenShaw2020"
+  ],
+  "documentation": "https://github.com/AidenShaw2020/mspa-denver-bt-local-control",
+  "iot_class": "local_polling",
+  "integration_type": "device",
+  "requirements": [],
+  "issue_tracker": "https://github.com/AidenShaw2020/mspa-denver-bt-local-control/issues"
+}

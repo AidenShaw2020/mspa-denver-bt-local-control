@@ -1,0 +1,5 @@
+# Match the Bluetooth connector version used by the tested HA API adapter.
+aiohttp>=3.12,<4
+bleak-retry-connector==4.7.1
+cryptography>=45,<51
+voluptuous>=0.15,<1
