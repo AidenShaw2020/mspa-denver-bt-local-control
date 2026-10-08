@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-10-08
+
+- Credit AidenShaw2020 as the project author while keeping personal contact details out of the distribution.
+- Use the test requirements file for GitHub Actions dependency caching; Linux validation passes.
+- No changes to device commands or entity behavior.
+
 ## 0.2.0 — 2026-10-08
 
 First public experimental distribution.

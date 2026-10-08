@@ -2,13 +2,15 @@
 
 ![MSpa Local](custom_components/mspa_local/brand/logo.png)
 
+Author: [AidenShaw2020](https://github.com/AidenShaw2020).
+
 **MSpa Local** is an experimental Home Assistant custom integration for reading and controlling an MSpa Denver over Bluetooth Mesh through an active ESPHome Bluetooth proxy.
 
 Normal device communication stays on your local network. An MSpa owner account is used during configuration to import the Mesh keys; manual key entry is also available. This project is independent of MSpa and ESPHome.
 
 ## Status
 
-Version **0.2.0** is a test release. Water temperature and full device state have been read and authenticated on a real Denver through an ESP32-WROOM-32 ESPHome proxy. A direct protocol test successfully changed the target temperature to 39 °C, verified it, and restored 38 °C. Other actuator writes have synthetic protocol coverage but have not all been exercised on hardware.
+Version **0.2.1** is a test release. Water temperature and full device state have been read and authenticated on a real Denver through an ESP32-WROOM-32 ESPHome proxy. A direct protocol test successfully changed the target temperature to 39 °C, verified it, and restored 38 °C. Other actuator writes have synthetic protocol coverage but have not all been exercised on hardware.
 
 The package has not yet been installed and tested inside a running Home Assistant instance. Its automated tests use Home Assistant API stubs and an encrypted simulated BLE peripheral. Other MSpa models and firmware versions are unverified.
 
@@ -23,7 +25,7 @@ Use a current Home Assistant release with Bluetooth connection support. The incl
 
 ## Installation
 
-1. Download `mspa-denver-bt-local-control-0.2.0.zip` from [Releases](https://github.com/AidenShaw2020/mspa-denver-bt-local-control/releases).
+1. Download `mspa-denver-bt-local-control-0.2.1.zip` from [Releases](https://github.com/AidenShaw2020/mspa-denver-bt-local-control/releases).
 2. Extract it and copy `custom_components/mspa_local` to `/config/custom_components/mspa_local` on Home Assistant. When updating, replace the existing integration folder.
 3. Add your ESPHome Bluetooth proxy to Home Assistant using the **ESPHome** integration. Enter its API encryption key there. MSpa Local uses Home Assistant's shared Bluetooth manager and does not require the proxy's IP address or API key.
 4. Restart Home Assistant.
