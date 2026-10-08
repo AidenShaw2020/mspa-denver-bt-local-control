@@ -2,8 +2,6 @@
 
 ![MSpa Local](custom_components/mspa_local/brand/logo.png)
 
-Author: [AidenShaw2020](https://github.com/AidenShaw2020).
-
 **MSpa Local** is an experimental Home Assistant custom integration for reading and controlling an MSpa Denver over Bluetooth Mesh through an active ESPHome Bluetooth proxy.
 
 Normal device communication stays on your local network. An MSpa owner account is used during configuration to import the Mesh keys; manual key entry is also available. This project is independent of MSpa and ESPHome.
