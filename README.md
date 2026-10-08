@@ -10,7 +10,7 @@ Normal device communication stays on your local network. An MSpa owner account i
 
 ## Status
 
-Version **0.2.1** is a test release. Water temperature and full device state have been read and authenticated on a real Denver through an ESP32-WROOM-32 ESPHome proxy. A direct protocol test successfully changed the target temperature to 39 °C, verified it, and restored 38 °C. Other actuator writes have synthetic protocol coverage but have not all been exercised on hardware.
+Version **0.2.2** is a test release. Water temperature and full device state have been read and authenticated on a real Denver through an ESP32-WROOM-32 ESPHome proxy. A direct protocol test successfully changed the target temperature to 39 °C, verified it, and restored 38 °C. Other actuator writes have synthetic protocol coverage but have not all been exercised on hardware.
 
 The package has not yet been installed and tested inside a running Home Assistant instance. Its automated tests use Home Assistant API stubs and an encrypted simulated BLE peripheral. Other MSpa models and firmware versions are unverified.
 
@@ -20,19 +20,29 @@ The package has not yet been installed and tested inside a running Home Assistan
 - Home Assistant with its Bluetooth integration and an ESPHome integration connected to an **active** Bluetooth proxy near the spa. The tested board is ESP32-WROOM-32.
 - The owning MSpa account, or the correct NetKey and AppKey for the spa's Mesh network. A shared account may expose a different network or omit the required nodes.
 - The spa configured to use **Celsius**. Fahrenheit control is not yet supported.
+- [HACS](https://www.hacs.dev/docs/use/) installed and configured in Home Assistant.
 
 Use a current Home Assistant release with Bluetooth connection support. The included local icon and detail logos require **Home Assistant 2026.3 or later**. Full runtime compatibility has not yet been established by installation testing. Proxy firmware is supplied separately; this repository does not flash or configure the ESP32.
 
-## Installation
+## Installation with HACS
 
-1. Download `mspa-denver-bt-local-control-0.2.1.zip` from [Releases](https://github.com/AidenShaw2020/mspa-denver-bt-local-control/releases).
-2. Extract it and copy `custom_components/mspa_local` to `/config/custom_components/mspa_local` on Home Assistant. When updating, replace the existing integration folder.
-3. Add your ESPHome Bluetooth proxy to Home Assistant using the **ESPHome** integration. Enter its API encryption key there. MSpa Local uses Home Assistant's shared Bluetooth manager and does not require the proxy's IP address or API key.
-4. Restart Home Assistant.
-5. Open **Settings → Devices & services → Add integration → MSpa Local**.
-6. Choose account import, enter the owner account, and select the region. Use **ROW** for Europe; **US** and **CH** are also available.
-7. Select the spa and review its profile. Leave NetKey and AppKey blank to keep the imported values.
-8. Initially keep the polling interval and state timeout at **60 seconds**. Use the default controller address `7FFD` only if it is unused in this Mesh network.
+This integration is available as a **custom HACS repository**. It is not included in the default HACS catalog.
+
+1. Open **HACS** in Home Assistant.
+2. Open the **⋮** menu in the top-right corner and select **Custom repositories**.
+3. Enter `https://github.com/AidenShaw2020/mspa-denver-bt-local-control`, select the type **Integration**, and click **Add**.
+4. Search for **MSpa Denver Bluetooth Local Control** in HACS and open it.
+5. Select **Download**. Choose `v0.2.2` if offered; otherwise choose **main** for the current experimental build. The GitHub releases are marked as pre-releases and may be hidden by your HACS version's default filters.
+6. Restart Home Assistant after HACS finishes downloading.
+7. Add your ESPHome Bluetooth proxy using Home Assistant's **ESPHome** integration. Enter its API encryption key there. MSpa Local uses Home Assistant's shared Bluetooth manager and does not require the proxy's IP address or API key.
+8. Open **Settings → Devices & services → Add integration → MSpa Local**.
+9. Choose account import, enter the owner account, and select the region. Use **ROW** for Europe; **US** and **CH** are also available.
+10. Select the spa and review its profile. Leave NetKey and AppKey blank to keep the imported values.
+11. Initially keep the polling interval and state timeout at **60 seconds**. Use the default controller address `7FFD` only if it is unused in this Mesh network.
+
+HACS downloads the integration from the selected repository version and places it in the correct directory. There is no need to download or extract the separate ZIP asset.
+
+For updates, download the new version in HACS and restart Home Assistant. To include pre-release versions in update notifications, enable the repository's HACS pre-release switch; see [HACS switch entities](https://www.hacs.dev/docs/use/entities/switch/). If the integration was installed manually before, add this repository in HACS and download it to manage the existing `mspa_local` installation. Keep the Home Assistant configuration entry and Mesh sequence storage.
 
 Keep the spa powered and the proxy nearby. Close MSpa Link during the initial connection test because it may occupy the Bluetooth connection. The first complete state read can take about a minute.
 
@@ -111,7 +121,7 @@ python scripts/build_release.py
 
 The suite covers published Mesh cryptographic vectors, fragmented state reads, authenticated half-degree target writes, command rejection, sequence persistence, disconnect handling, platform entities, profile parsing and configuration. All fixtures use public test vectors or synthetic data. Home Assistant is stubbed, so these tests do not establish full runtime compatibility.
 
-The builder validates Python and JSON files and writes an installation archive plus its SHA-256 checksum to `dist/`. It packages only integration files and distribution documentation.
+The builder validates Python, JSON and the HACS repository layout, then writes an optional standalone archive plus its SHA-256 checksum to `dist/`. HACS installs directly from repository sources. The integration directory includes license notices so they remain available after installation through HACS.
 
 Integration branding lives in `custom_components/mspa_local/brand/`, including light/dark detail logos and high-resolution PNG variants. The editable icon source is [assets/icon.svg](assets/icon.svg). These are original project graphics, supplied under the project license. Home Assistant loads them locally without a separate brands repository submission.
 

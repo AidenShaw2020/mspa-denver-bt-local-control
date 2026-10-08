@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2 — 2026-10-08
+
+- Make HACS custom repository installation the documented installation method.
+- Add HACS metadata with a Home Assistant 2026.3 minimum for local brand images.
+- Include license notices inside the integration directory for HACS installations.
+- Validate the HACS repository layout when building distribution archives.
+- No changes to device commands or entity behavior.
+
 ## 0.2.1 — 2026-10-08
 
 - Credit AidenShaw2020 as the project author while keeping personal contact details out of the distribution.

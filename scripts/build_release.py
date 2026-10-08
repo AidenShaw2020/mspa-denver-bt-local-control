@@ -1,4 +1,4 @@
-"""Build the manual-install ZIP from a strict distribution allowlist."""
+"""Validate HACS sources and build an optional ZIP from a strict allowlist."""
 import ast
 import hashlib
 import json
@@ -8,10 +8,11 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'custom_components/mspa_local'
-DOCUMENTS = ('README.md', 'LICENSE', 'NOTICE', 'CHANGELOG.md',
+DOCUMENTS = ('README.md', 'LICENSE', 'NOTICE', 'CHANGELOG.md', 'hacs.json',
              'LICENSES/Nordic-BSD-3-Clause.txt')
 BRAND_IMAGES = {'icon.png', 'icon@2x.png', 'logo.png', 'logo@2x.png',
                 'dark_logo.png', 'dark_logo@2x.png'}
+PACKAGE_NOTICES = ('LICENSE', 'NOTICE', 'LICENSES/Nordic-BSD-3-Clause.txt')
 
 
 def main():
@@ -19,9 +20,19 @@ def main():
     version = manifest['version']
     assert manifest['domain'] == 'mspa_local'
     assert version and all(c in '0123456789.' for c in version)
+    hacs = json.loads((ROOT / 'hacs.json').read_text(encoding='utf-8'))
+    assert hacs['name'] and hacs['render_readme'] is True
+    assert not hacs.get('zip_release') and not hacs.get('content_in_root')
+    assert [p.name for p in (ROOT / 'custom_components').iterdir() if p.is_dir()] == ['mspa_local']
+    assert all(manifest.get(key) for key in ('documentation', 'issue_tracker', 'codeowners', 'name', 'version'))
+    for notice in PACKAGE_NOTICES:
+        assert (PACKAGE / notice).read_bytes() == (ROOT / notice).read_bytes()
     files = [ROOT / name for name in DOCUMENTS]
     for file in PACKAGE.rglob('*'):
         if not file.is_file() or '__pycache__' in file.parts:
+            continue
+        if file.relative_to(PACKAGE).as_posix() in PACKAGE_NOTICES:
+            files.append(file)
             continue
         if file.parent == PACKAGE / 'brand' and file.name in BRAND_IMAGES:
             data = file.read_bytes()
