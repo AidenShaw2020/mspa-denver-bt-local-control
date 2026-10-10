@@ -8,7 +8,7 @@ Normal device communication stays on your local network. An MSpa owner account i
 
 ## Status
 
-Version **0.2.3** documents successful real-world testing. On October 10, 2026, the project author confirmed correct operation of the installed integration and its controls on an MSpa Denver in Home Assistant. This also works with Bluetooth proxy and [MSpa Denver RF LED control](https://github.com/AidenShaw2020/mspa-denver-rf-led-control) combined on the same ESP32.
+Version **0.2.3** documents successful real-world testing. This also works with Bluetooth proxy and [MSpa Denver RF LED control](https://github.com/AidenShaw2020/mspa-denver-rf-led-control) combined on the same ESP32.
 
 **Known limitation:** occasional Bluetooth connection dropouts still occur. In the tested setup, the connection recovers automatically within about one minute without manual intervention. This is an observed recovery time, not a guarantee for every installation.
 
