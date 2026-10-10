@@ -52,7 +52,7 @@ Owners of the earlier diagnostic 0.1.0 package must import keys again in **Optio
 
 ## Sharing the ESP32 with RF LED control
 
-The project author has tested the Bluetooth proxy and [mspa-denver-rf-led-control](https://github.com/AidenShaw2020/mspa-denver-rf-led-control) together on one ESP32, with correct operation of both the spa controls and LED control. Two separate ESP32 boards are therefore not required for the tested setup.
+Also tested the Bluetooth proxy and [mspa-denver-rf-led-control](https://github.com/AidenShaw2020/mspa-denver-rf-led-control) together on one ESP32, with correct operation of both the spa controls and LED control. Two separate ESP32 boards are therefore not required for the tested setup.
 
 MSpa Local still uses the shared ESPHome Bluetooth proxy through Home Assistant. The RF LED commands remain part of the linked LED project; this integration does not add RF LED entities or flash a combined firmware image. Use the LED project's ESPHome configuration together with an active Bluetooth proxy, and register that ESPHome device in Home Assistant.
 
