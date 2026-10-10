@@ -2,7 +2,7 @@
 """Local Bluetooth controls; no prediction or automatic heating scheduler."""
 DOMAIN = "mspa_local"
 PROBE_SECONDS = 60
-VERSION = '0.2.2'
+VERSION = '0.2.3'
 POLL_SECONDS = 60
 CONTROLLER_ADDRESS = '7FFD'
 FEATURES = {

@@ -2,15 +2,17 @@
 
 ![MSpa Local](custom_components/mspa_local/brand/logo.png)
 
-**MSpa Local** is an experimental Home Assistant custom integration for reading and controlling an MSpa Denver over Bluetooth Mesh through an active ESPHome Bluetooth proxy.
+**MSpa Local** is a Home Assistant custom integration for reading and controlling an MSpa Denver over Bluetooth Mesh through an active ESPHome Bluetooth proxy.
 
 Normal device communication stays on your local network. An MSpa owner account is used during configuration to import the Mesh keys; manual key entry is also available. This project is independent of MSpa and ESPHome.
 
 ## Status
 
-Version **0.2.2** is a test release. Water temperature and full device state have been read and authenticated on a real Denver through an ESP32-WROOM-32 ESPHome proxy. A direct protocol test successfully changed the target temperature to 39 °C, verified it, and restored 38 °C. Other actuator writes have synthetic protocol coverage but have not all been exercised on hardware.
+Version **0.2.3** documents successful real-world testing. On October 10, 2026, the project author confirmed correct operation of the installed integration and its controls on an MSpa Denver in Home Assistant. This also works with Bluetooth proxy and [MSpa Denver RF LED control](https://github.com/AidenShaw2020/mspa-denver-rf-led-control) combined on the same ESP32.
 
-The package has not yet been installed and tested inside a running Home Assistant instance. Its automated tests use Home Assistant API stubs and an encrypted simulated BLE peripheral. Other MSpa models and firmware versions are unverified.
+**Known limitation:** occasional Bluetooth connection dropouts still occur. In the tested setup, the connection recovers automatically within about one minute without manual intervention. This is an observed recovery time, not a guarantee for every installation.
+
+Earlier direct hardware tests authenticated full device state and water temperature through an ESP32-WROOM-32 ESPHome proxy, and verified setting the target temperature to 39 °C and restoring 38 °C. Automated tests additionally use Home Assistant API stubs and an encrypted simulated BLE peripheral. Other MSpa models, firmware versions and deployment configurations remain unverified. This remains an early release; version 0.2.3 changes documentation and packaging, not the working control implementation.
 
 ## Requirements
 
@@ -20,7 +22,7 @@ The package has not yet been installed and tested inside a running Home Assistan
 - The spa configured to use **Celsius**. Fahrenheit control is not yet supported.
 - [HACS](https://www.hacs.dev/docs/use/) installed and configured in Home Assistant.
 
-Use a current Home Assistant release with Bluetooth connection support. The included local icon and detail logos require **Home Assistant 2026.3 or later**. Full runtime compatibility has not yet been established by installation testing. Proxy firmware is supplied separately; this repository does not flash or configure the ESP32.
+Use a current Home Assistant release with Bluetooth connection support. The included local icon and detail logos require **Home Assistant 2026.3 or later**. Runtime operation has been confirmed on the author's Denver installation; compatibility with other setups needs individual testing. Proxy firmware is supplied separately; this repository does not flash or configure the ESP32.
 
 ## Installation with HACS
 
@@ -30,7 +32,7 @@ This integration is available as a **custom HACS repository**. It is not include
 2. Open the **⋮** menu in the top-right corner and select **Custom repositories**.
 3. Enter `https://github.com/AidenShaw2020/mspa-denver-bt-local-control`, select the type **Integration**, and click **Add**.
 4. Search for **MSpa Denver Bluetooth Local Control** in HACS and open it.
-5. Select **Download**. Choose `v0.2.2` if offered; otherwise choose **main** for the current experimental build. The GitHub releases are marked as pre-releases and may be hidden by your HACS version's default filters.
+5. Select **Download**. Choose `v0.2.3` if offered; otherwise choose **main** for the current early release. The GitHub releases are marked as pre-releases and may be hidden by your HACS version's default filters.
 6. Restart Home Assistant after HACS finishes downloading.
 7. Add your ESPHome Bluetooth proxy using Home Assistant's **ESPHome** integration. Enter its API encryption key there. MSpa Local uses Home Assistant's shared Bluetooth manager and does not require the proxy's IP address or API key.
 8. Open **Settings → Devices & services → Add integration → MSpa Local**.
@@ -47,6 +49,12 @@ Keep the spa powered and the proxy nearby. Close MSpa Link during the initial co
 For manual setup, provide both 32-character hexadecimal keys and the spa's hexadecimal Mesh unicast address. The default spa address `0102` is an example from the tested Denver, not a universal device address.
 
 Owners of the earlier diagnostic 0.1.0 package must import keys again in **Options** after updating: that package stored only NetKey, while control also requires AppKey.
+
+## Sharing the ESP32 with RF LED control
+
+The project author has tested the Bluetooth proxy and [mspa-denver-rf-led-control](https://github.com/AidenShaw2020/mspa-denver-rf-led-control) together on one ESP32, with correct operation of both the spa controls and LED control. Two separate ESP32 boards are therefore not required for the tested setup.
+
+MSpa Local still uses the shared ESPHome Bluetooth proxy through Home Assistant. The RF LED commands remain part of the linked LED project; this integration does not add RF LED entities or flash a combined firmware image. Use the LED project's ESPHome configuration together with an active Bluetooth proxy, and register that ESPHome device in Home Assistant.
 
 ## Entities
 
@@ -79,6 +87,8 @@ MSpa Local uses the `mspa_local` domain and separate unique IDs. Update dashboar
 
 The integration maintains a GATT connection through Home Assistant, requests full state periodically, and reconnects on a later update after disconnection. Writes are confirmed by authenticated state readback. An acknowledgement alone is not treated as success. A failed or unconfirmed write returns a service error and marks entities unavailable until a successful update.
 
+Occasional disconnections and automatic recovery within about one minute have been reported in real-world use, including the shared ESP32/LED setup. This release documents that behavior without changing reconnect timing or retrying uncertain writes.
+
 Writes are not automatically retried after an uncertain result. Turning off the filter first turns off the heater, matching the cloud integration's dependency. Turning bubbles on first selects the reported valid level, or level 1 if needed. Startup and reconnection only read state; they do not restore actuator settings or turn heating on automatically.
 
 This version supports the verified **IV Index 0** without Mesh Key Refresh or IV Update. It stops access in unsupported transition states. Fahrenheit temperature commands are blocked rather than converted using an unverified interpretation.
@@ -101,6 +111,7 @@ The default Home Assistant source is `7FFD`. The development hardware tests used
 
 - **No Mesh nodes / invalid profile:** use the owner account and correct region; a shared account may not contain the spa's keys. Reimport keys in Options.
 - **Unavailable / timeout:** check proxy availability, active connections, proximity, spa power, and whether the mobile app is connected. Start with a 60-second state timeout.
+- **Brief connection dropouts:** the tested installation reconnects automatically within about one minute. Allow the next polling cycle to complete. If the interruption persists or repeatedly prevents control, check the proxy's availability and signal and collect integration diagnostics.
 - **Authentication succeeds but no full state:** verify the spa address and AppKey, not just NetKey. Beacon authentication alone does not prove control access.
 - **Unsupported IV/key transition:** this release cannot migrate that state; do not reset the sequence file as a workaround.
 - **Temperature unavailable:** check that the spa uses Celsius.

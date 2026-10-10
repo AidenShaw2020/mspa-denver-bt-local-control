@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3 — 2026-10-10
+
+- Document author-confirmed operation on a real MSpa Denver in Home Assistant.
+- Document successful shared ESP32 operation with the MSpa Denver RF LED control project.
+- Record occasional Bluetooth dropouts with automatic recovery within about one minute in the tested setup.
+- Correct early Git commit attribution from the unrelated noreply account to AidenShaw2020, using the author's GitHub privacy email.
+- No changes to device commands, entities or reconnect behavior.
+
 ## 0.2.2 — 2026-10-08
 
 - Make HACS custom repository installation the documented installation method.
